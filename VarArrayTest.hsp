@@ -1,0 +1,79 @@
+#runtime "hsp3cl"
+#include "VarArray.as"
+
+#module Program
+	#deffunc main
+		dimtype list1,5
+		new@VarArray list1
+		mes vaCount(list1)
+		vaAdd list1,"ƒiƒX"
+		mes vaCount(list1)
+		vaAdd list1,50
+		vaAdd list1,1.586
+
+		mes "ylist1z"
+		vaForeach list1
+			mes vaItem(list1,cnt)
+		loop
+
+		mes "yIndex 1 changedz"
+		vaSet list1,1,256
+		vaReSet list1,2,*,2
+		vaForeach list1
+			mes vaItem(list1,cnt)
+		loop
+
+		mes "ylist2z"
+		new@VarArray list2
+		vaAdd list2,"ƒLƒ…ƒEƒŠ"
+		vaAdd list2,51
+		vaAdd list2,1.1024
+		vaAdd list2,*jumping
+
+		new@VarArray inlist
+		vaAdd inlist,"yVarArray In VarArrayz"
+		vaAdd list2,inlist //list2‚É“n‚³‚ê‚é‚Ì‚ÍQÆ‚Ì‚İ
+		vaAdd inlist,"ƒ_ƒCƒRƒ“"
+		vaAdd inlist,1024
+		vaAdd inlist,M_PI
+
+		dim item
+		vaForeach list2
+			vaRefItem list2,cnt,item
+			if vartype(item)=vartype("label") {
+				gosub item
+			}
+			else:if vartype(item)=vartype("struct") {
+				vaForeach item
+					mes vaItem(item,cnt)
+				loop
+			}
+			else {
+				mes item
+			}
+		loop
+
+		mes "yRemoved list2z"
+		vaRemove list2,1
+		vaRemove list2,3
+		dim item
+		vaForeach list2
+			vaRefItem list2,cnt,item
+			if vartype(item)=vartype("label") {
+				gosub item
+			}
+			else:if vartype(item)=vartype("struct") {
+				vaForeach item
+					mes vaItem(item,cnt)
+				loop
+			}
+			else {
+				mes item
+			}
+		loop
+	return
+
+	*jumping
+		mes "ƒ‰ƒxƒ‹ƒWƒƒƒ“ƒsƒ“ƒO!": return
+#global
+main
